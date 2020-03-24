@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Exit with status 1 if pid is not 1
+[ $$ -eq 1 ] || exit 1
+
+# Run boot script and fork
+/lib/init/rc.boot &
+
+# Sleep for a day. As sleep is not a builtin for every
+# shell, we don't want to keep spawning processes, hence
+# the long sleep time.
+#
+# We also don't want to run 'while :; do :; done' as
+# it would lead to high cpu usage.
+while :; do sleep 86400; done
