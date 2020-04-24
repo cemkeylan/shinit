@@ -6,10 +6,18 @@
 # Run the boot script
 /lib/init/rc.boot
 
+# Add signal traps for poweroff and reboot
+trap '/lib/init/rc.shutdown poweroff' USR1
+trap '/lib/init/rc.shutdown reboot'   INT
+
 # Sleep for a day. As sleep is not a builtin for every
 # shell, we don't want to keep spawning processes, hence
 # the long sleep time.
 #
 # We also don't want to run 'while :; do :; done' as
 # it would lead to high cpu usage.
-while :; do sleep 86400; done
+#
+# Since we want to trap signals, We fork and wait for the
+# sleep. If sleep is not forked, signals will not be acted
+# upon.
+while :; do sleep 86400 & wait ; done
