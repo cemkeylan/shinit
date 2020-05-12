@@ -1,0 +1,4 @@
+#!/bin/sh
+# An example way to poweroff/reboot.
+
+case "${0##*/}" in poweroff) kill -s USR1 1 ;; reboot) kill -s INT 1 ; esac
