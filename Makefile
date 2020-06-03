@@ -2,9 +2,11 @@ PREFIX = /usr/local
 BINDIR = ${PREFIX}/bin
 
 install:
-	install -Dm755 shinit   ${DESTDIR}${BINDIR}/shinit
-	install -Dm755 poweroff ${DESTDIR}${BINDIR}/poweroff
-	ln -sf         poweroff ${DESTDIR}${BINDIR}/reboot
+	mkdir -p ${DESTDIR}${BINDIR}
+	cp shinit poweroff ${DESTDIR}${BINDIR}
+	chmod 755 ${DESTDIR}${BINDIR}/shinit
+	chmod 755 ${DESTDIR}${BINDIR}/poweroff
+	ln -sf poweroff ${DESTDIR}${BINDIR}/reboot
 
 uninstall:
 	rm -f ${DESTDIR}${BINDIR}/shinit \
